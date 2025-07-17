@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSP TukTuk - Under Construction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #f0f0f0;
+            margin-bottom: 3rem;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .car-container {
+            position: relative;
+            width: 350px;
+            height: 200px;
+            margin: 2rem 0;
+            animation: bounce 2s infinite;
+        }
+
+        .car {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-origin: center bottom;
+        }
+
+        .car-body {
+            width: 280px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border-radius: 15px 15px 5px 5px;
+            position: absolute;
+            bottom: 40px;
+            left: 35px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            animation: wiggle 3s infinite;
+        }
+
+        .car-roof {
+            width: 180px;
+            height: 70px;
+            background: linear-gradient(45deg, #2d3436, #636e72);
+            border-radius: 25px 25px 0 0;
+            position: absolute;
+            top: -35px;
+            left: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .car-windscreen {
+            width: 160px;
+            height: 50px;
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            border-radius: 20px 20px 0 0;
+            position: absolute;
+            top: -30px;
+            left: 10px;
+            opacity: 0.8;
+            animation: shimmer 2s infinite;
+        }
+
+        .car-door {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(45deg, #e17055, #d63031);
+            border-radius: 5px;
+            position: absolute;
+            top: 20px;
+            left: 100px;
+            border: 2px solid #2d3436;
+        }
+
+        .car-window {
+            width: 70px;
+            height: 40px;
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            border-radius: 5px;
+            position: absolute;
+            top: -25px;
+            left: 105px;
+            opacity: 0.9;
+        }
+
+        .wheel {
+            width: 50px;
+            height: 50px;
+            background: #2d3436;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+            animation: spin 1s linear infinite;
+        }
+
+        .wheel-front {
+            left: 220px;
+        }
+
+        .wheel-back {
+            left: 80px;
+        }
+
+        .wheel::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: #636e72;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .exhaust {
+            width: 10px;
+            height: 25px;
+            background: #2d3436;
+            position: absolute;
+            bottom: 50px;
+            left: 15px;
+            border-radius: 5px;
+        }
+
+        .smoke {
+            width: 15px;
+            height: 15px;
+            background: #ddd;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 75px;
+            left: 12px;
+            animation: smoke-rise 2s infinite;
+        }
+
+        .headlight {
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #fff 0%, #ffeaa7 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 40px;
+            right: 5px;
+            box-shadow: 0 0 20px #ffeaa7;
+            animation: blink 3s infinite;
+        }
+
+        .taillight {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff7675 0%, #d63031 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 45px;
+            left: 5px;
+            box-shadow: 0 0 15px #ff7675;
+            animation: blink 4s infinite;
+        }
+
+        .road {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(180deg, #2d3436 0%, #636e72 100%);
+            overflow: hidden;
+        }
+
+        .road-line {
+            position: absolute;
+            bottom: 50px;
+            width: 100px;
+            height: 4px;
+            background: #fff;
+            animation: road-move 2s linear infinite;
+        }
+
+        .construction-text {
+            font-size: 2rem;
+            color: #fff;
+            text-align: center;
+            margin: 2rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            border-radius: 10px;
+            animation: progress 4s infinite;
+            box-shadow: 0 0 10px rgba(0,184,148,0.5);
+        }
+
+        .coming-soon {
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            text-align: center;
+            margin-top: 2rem;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            text-align: center;
+            color: #f0f0f0;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+
+        .contact-info a {
+            color: #74b9ff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #0984e3;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes smoke-rise {
+            0% {
+                opacity: 0.8;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(1.5);
+            }
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0.3; }
+        }
+
+        @keyframes road-move {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 60%; }
+            100% { width: 0%; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .car-container {
+                width: 280px;
+                height: 150px;
+            }
+            
+            .car-body {
+                width: 220px;
+                height: 80px;
+            }
+            
+            .car-roof {
+                width: 140px;
+                height: 55px;
+            }
+            
+            .construction-text {
+                font-size: 1.5rem;
+            }
+            
+            .progress-bar {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="road">
+        <div class="road-line" style="left: 0px;"></div>
+        <div class="road-line" style="left: 150px;"></div>
+        <div class="road-line" style="left: 300px;"></div>
+        <div class="road-line" style="left: 450px;"></div>
+        <div class="road-line" style="left: 600px;"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="logo">SSP Car</h1>
+        <p class="subtitle">Your Reliable Ride, Coming Soon!</p>
+        
+        <div class="car-container">
+            <div class="car">
+                <div class="car-body">
+                    <div class="car-roof"></div>
+                    <div class="car-windscreen"></div>
+                    <div class="car-door"></div>
+                    <div class="car-window"></div>
+                    <div class="headlight"></div>
+                    <div class="taillight"></div>
+                </div>
+                <div class="wheel wheel-front"></div>
+                <div class="wheel wheel-back"></div>
+                <div class="exhaust"></div>
+                <div class="smoke"></div>
+            </div>
+        </div>
+        
+        <div class="construction-text">🚧 Under Construction 🚧</div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        
+        <p class="coming-soon">We're working hard to bring you the best car service experience!</p>
+        
+        <div class="contact-info">
+            <p>For inquiries, contact us at:</p>
+            <a href="mailto:info@sspcar.com">yalnixlk@gmail.com</a>
+            <a href="tel:+1234567890"> +94755454205 </a>
+        </div>
+    </div>
+
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const numStars = 50;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = star.style.height = Math.random() * 3 + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Add multiple smoke puffs
+        function createSmokeEffect() {
+            const exhaust = document.querySelector('.exhaust');
+            
+            setInterval(() => {
+                const smoke = document.createElement('div');
+                smoke.className = 'smoke';
+                smoke.style.left = Math.random() * 10 + 15 + 'px';
+                smoke.style.animationDelay = Math.random() * 0.5 + 's';
+                exhaust.appendChild(smoke);
+                
+                setTimeout(() => {
+                    smoke.remove();
+                }, 2000);
+            }, 800);
+        }
+        
+        // Add road line animation with infinite scroll
+        function animateRoadLines() {
+            const roadLines = document.querySelectorAll('.road-line');
+            
+            roadLines.forEach((line, index) => {
+                line.style.animationDelay = index * 0.5 + 's';
+            });
+        }
+        
+        // Add interactive hover effects
+        function addInteractivity() {
+            const car = document.querySelector('.car');
+            
+            car.addEventListener('mouseenter', () => {
+                car.style.transform = 'scale(1.1)';
+                car.style.transition = 'transform 0.3s ease';
+            });
+            
+            car.addEventListener('mouseleave', () => {
+                car.style.transform = 'scale(1)';
+            });
+        }
+        
+        // Initialize all animations
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createSmokeEffect();
+            animateRoadLines();
+            addInteractivity();
+        });
+    </script>
+</body>
+</html>
